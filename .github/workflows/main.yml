@@ -15,7 +15,7 @@ on:
 
 env:
   REGISTRY_NAME: lordbyron
-  CLUSTER_NAME: microsoft.aks-20220127203003
+  CLUSTER_NAME: lordbyron-dev
   CLUSTER_RESOURCE_GROUP: lordbyron-dev
   NAMESPACE: default
   APP_NAME: core-byron-cochera
