@@ -31,6 +31,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@main
+      - name: action-maven
+        uses: comchangs/action-maven@v0.4-beta
       - uses: azure/docker-login@v1
         with:
           login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
