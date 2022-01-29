@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parking-ms
+  labels:
+    app: parking-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parking-ms
+  template:
+    metadata:
+      labels:
+        app: parking-ms
+    spec:
+      containers:
+        - name: parking-ms
+          image: lordbyron.azurecr.io/parking-ms:v1
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: CONFIG_URI
+              valueFrom:
+                secretKeyRef:
+                  name: byron-secret
+                  key: config-uri
+            - name: CONFIG_ENABLED
+              valueFrom:
+                secretKeyRef:
+                  name: byron-secret
+                  key: config-enabled
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: parking-ms-service
+spec:
+  selector:
+    app: parking-ms
+  ports:
+    - protocol: TCP
+      port: 8080
+
