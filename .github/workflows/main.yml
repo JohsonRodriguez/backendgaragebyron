@@ -18,8 +18,8 @@ env:
   CLUSTER_NAME: lordbyron-dev
   CLUSTER_RESOURCE_GROUP: lordbyron-dev
   NAMESPACE: default
-  APP_NAME: core-byron-cochera
-  SECRET: parking-secret
+  APP_NAME: parking-ms
+  SECRET: parking-ms
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -73,12 +73,9 @@ jobs:
       - uses: azure/k8s-deploy@v1
         with:
           manifests: |
-            ${{ github.workspace }}/manifests/deployment.yaml
-            ${{ github.workspace }}/manifests/service.yaml
+            ${{ github.workspace }}/devops/deployment.yaml
           images: |
             ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
           imagepullsecrets: |
             ${{ env.SECRET }}
           namespace: ${{ env.NAMESPACE }}
-          
-
